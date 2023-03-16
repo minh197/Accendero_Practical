@@ -6,6 +6,10 @@ module.exports = {
       fontFamily: {
         sans: ["Open Sans", "sans-serif"],
       },
+      boxSizing : 'border-box',
+      fontawesomeSvgCore: {
+        license: "free",
+      },
       backgroundColor: {
         gray: "#d4d4d4",
       },

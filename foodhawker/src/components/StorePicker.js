@@ -18,7 +18,7 @@ function StorePicker() {
             className="w-full text-center text-xl bg-sky-50 hover:bg-cyan-300"
             type="submit"
           >
-            Vist Hawker
+            Visit Hawker
           </button>
         </form>
       </div>
