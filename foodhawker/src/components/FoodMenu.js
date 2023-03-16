@@ -1,16 +1,14 @@
-import React from 'react'
-import Header from './Header'
-
+import React from "react";
+import Header from "./Header";
 
 function FoodMenu() {
   return (
-    <div className='foodMenu'>
-    <div className='menu'>
-        <Header/>
+    <div className="foodMenu">
+      <div className="menu">
+        <Header />
+      </div>
     </div>
-   
-    </div>
-  )
+  );
 }
 
-export default FoodMenu
+export default FoodMenu;

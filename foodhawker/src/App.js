@@ -1,25 +1,17 @@
-import logo from "./logo.svg";
 import "./App.css";
 import StorePicker from "./components/StorePicker";
-import FoodMenu from "./components/FoodMenu";
-import Inventory from "./components/Inventory";
-import Order from "./components/Order";
+import { Routes, Route } from "react-router-dom";
+import NotFound from "./components/NotFound";
+import Main from "./components/Main";
+
 function App() {
   return (
-    <div
-      className=" flex flex-shrink-1 p-8
-     relative bg-white shadow-md min-h-screen"
-    >
-      {/* <StorePicker /> */}
-      <div className=" p-4 border-8 border-double border-gray-900 flex-1">
-        <FoodMenu className=" h-full" />
-      </div>
-      <div className=" p-4 border-8 border-double border-gray-900 flex-1">
-        <Inventory className=" h-full" />
-      </div>
-      <div className=" p-4  border-8 border-double border-gray-900 flex-1">
-        <Order className=" h-full" />
-      </div>
+    <div>
+      <Routes>
+        <Route path="/" element={<StorePicker />} />
+        <Route path="/hawker/:hawkerId" element={<Main />} />
+        <Route element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
