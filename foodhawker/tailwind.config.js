@@ -5,8 +5,10 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["Open Sans", "sans-serif"],
+        haymaker: ["haymakerregular", "sans-serif"],
+        Josefin: ["Josefin Sans', sans-serif"],
       },
-      boxSizing : 'border-box',
+      boxSizing: "border-box",
       fontawesomeSvgCore: {
         license: "free",
       },
@@ -24,9 +26,6 @@ module.exports = {
       "4xl": "4.8rem",
       "5xl": "6.4rem",
       "6xl": "7.2rem",
-    },
-    fontFamily: {
-      sans: ["Open Sans", "sans-serif"],
     },
   },
   plugins: [],
