@@ -14,11 +14,11 @@ function AddFoodForm(props) {
       //stop the form from auto submission
       event.preventDefault();
       const dish = {
-        dishName: name.current.value,
-        dishPrice: parseFloat(price.current.value),
-        dishSelect: select.current.value,
-        dishDesc: desc.current.value,
-        dishImage: image.current.value,
+        name: name.current.value,
+        price: parseFloat(price.current.value),
+        select: select.current.value,
+        desc: desc.current.value,
+        image: image.current.value,
       };
       props.addDish(dish);
       console.log(dish)

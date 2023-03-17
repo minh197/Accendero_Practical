@@ -5,6 +5,7 @@ import Inventory from "./Inventory";
 import Order from "./Order";
 import sampleDishes from "../sampleDishes";
 import dishes from "../sampleDishes";
+import Dish from "./Dish";
 function Main() {
   const [state, setState] = useState({
     dishes: {},
@@ -23,8 +24,6 @@ function Main() {
   };
   const loadSampleDishes = () => {
     setState({dishes: sampleDishes});
-    console.log(dishes);
-    alert("Loading sample dishes");
     
   };
   return (
@@ -34,6 +33,9 @@ function Main() {
     >
       <div className=" p-4 border-8 border-double border-gray-900 flex-1">
         <FoodMenu className=" h-full" />
+        <ul className="dishes">
+          {Object.keys(state.dishes).map(key => <Dish key={key} details ={state.dishes[key]}></Dish>)}
+        </ul>
       </div>
       <div className=" p-4  border-8 border-double border-gray-900 flex-1">
         <Order className=" h-full" />

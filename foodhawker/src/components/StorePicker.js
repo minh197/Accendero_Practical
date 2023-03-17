@@ -17,7 +17,7 @@ function StorePicker() {
   });
 
   return (
-    <div className="flex justify-center items-center h-screen bg-neutral-400	">
+    <div className="flex justify-center items-center h-screen bg-slate-500		">
       <div className=" max-w-500 mx-auto p-8 border-2 border-black flex justify-between">
         <form className="store-selector" onSubmit={goToHawker}>
           <h2>Please Enter The Name of Your Food Hawker</h2>

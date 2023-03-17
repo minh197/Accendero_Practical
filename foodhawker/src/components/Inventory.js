@@ -9,7 +9,7 @@ function Inventory(props) {
         addDish={props.addDish}
       />
       <button
-        className="bg-sky-50 hover:bg-cyan-300 w-full text-center"
+        className="bg-sky-50 hover:bg-cyan-300 text-center"
         onClick={props.loadSampleDishes}
       >
         + Load Sample Dishes +
