@@ -21,16 +21,19 @@ function AddFoodForm(props) {
         dishImage: image.current.value,
       };
       props.addDish(dish);
+      console.log(dish)
       //refresh the form
-      event.current.reset();
+      console.log(event);
+    event.target.reset();
 
     }
     return handleCreateNewDish;
   });
+
   return (
-    <div>
+    <div className="mb-20 border-2 border-black ">
       <form
-        className="mb-20 border-2 border-black overflow-hidden flex flex-wrap dish-edit"
+        className="overflow-hidden flex flex-wrap dish-edit"
         onSubmit={createNewDish}
       >
         <input
@@ -75,6 +78,7 @@ function AddFoodForm(props) {
           + Add New Dish
         </button>
       </form>
+     
     </div>
   );
 }

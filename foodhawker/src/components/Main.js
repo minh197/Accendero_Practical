@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import FoodMenu from "./FoodMenu";
 import Inventory from "./Inventory";
 import Order from "./Order";
+import sampleDishes from "../sampleDishes";
+import dishes from "../sampleDishes";
 function Main() {
   const [state, setState] = useState({
     dishes: {},
@@ -19,6 +21,12 @@ function Main() {
       dishes,
     });
   };
+  const loadSampleDishes = () => {
+    setState({dishes: sampleDishes});
+    console.log(dishes);
+    alert("Loading sample dishes");
+    
+  };
   return (
     <div
       className=" flex flex-shrink-1 p-8
@@ -31,7 +39,11 @@ function Main() {
         <Order className=" h-full" />
       </div>
       <div className=" p-4 border-8 border-double border-gray-900 flex-1">
-        <Inventory className=" h-full" addDish={addDish} />
+        <Inventory
+          className=" h-full"
+          addDish={addDish}
+          loadSampleDishes={loadSampleDishes}
+        />
       </div>
     </div>
   );
