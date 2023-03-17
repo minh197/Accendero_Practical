@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 function formatPrice(cents) {
   return (cents / 100).toLocaleString("en-US", {
@@ -8,8 +8,13 @@ function formatPrice(cents) {
 }
 
 function Dish(props) {
-    const {image, name, price, desc, status} = props.details; 
-    
+  const { image, name, price, desc, status } = props.details;
+  const isAvailable = status === "available";
+
+  function handleAddToOrder () {
+    props.addOrder(props.index);
+  }
+
   return (
     <li className="border-b-2 border-t-1 border-black pb-8 pt-8 mb-5 clear-both overflow-hidden">
       <img className="" src={image} alt={name} />
@@ -18,11 +23,23 @@ function Dish(props) {
         <span>{formatPrice(price)}</span>
       </h3>
       <p>{desc}</p>
-      <button className="border border-black bg-sky-50 hover:bg-orange-600">
-        Add to Order
+      <h3
+        className="items-center"
+        style={{ color: isAvailable ? "blue" : "red" }}
+      >
+        Status: {status}
+      </h3>
+      <button
+        disabled={!isAvailable}
+        className={`border border-black bg-sky-50 ${
+          isAvailable ? "hover:bg-orange-600" : "opacity-50 cursor-not-allowed"
+        }`}
+        onClick ={() => handleAddToOrder()}
+      >
+        {isAvailable ? "Add to Order" : "Unavailable"}
       </button>
     </li>
   );
 }
 
-export default Dish
+export default Dish;
