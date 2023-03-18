@@ -16,15 +16,11 @@ function AddFoodForm(props) {
       const dish = {
         name: name.current.value,
         price: parseFloat(price.current.value),
-        select: select.current.option,
+        status: select.current.value,
         desc: desc.current.value,
         image: image.current.value,
       };
       props.addDish(dish);
-      console.log(dish);
-      console.log("This is select", select);
-      //refresh the form
-      console.log(event);
       event.target.reset();
     }
     return { handleCreateNewDish };

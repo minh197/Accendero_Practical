@@ -1,28 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import FoodMenu from "./FoodMenu";
 import Inventory from "./Inventory";
 import Order from "./Order";
-import sampleDishes from "../sampleDishes";
+import { useParams } from "react-router-dom";
+import { sampleDishes } from "../sampleDishes";
 import Dish from "./Dish";
+import { db } from "../base";
+import { ref, onValue, set } from "firebase/database";
+
 function Main() {
   const [state, setState] = useState({
     dishes: {},
     orders: {},
+    icount: 0,
   });
-  
-  const addDish = (dish) => {
-    //1. Take a copy of the existing state
-    const dishes = { ...state.dishes };
-    //2. Add the new dish to dishes variable
-    dishes[`dish${Date.now()}`] = dish;
-    //3. Set the new dishes object to state
-    setState({
-      ...state,
-      dishes,
+  const uploadSampleData = () => {
+    if (params.hawkerId) {
+      Object.keys(sampleDishes).map((key) => {
+        set(ref(db, `${params.hawkerId}/dishes/sampleDishes/${key}`), {
+          name: sampleDishes[key].name,
+          image: sampleDishes[key].image,
+          desc: sampleDishes[key].desc,
+          price: sampleDishes[key].price,
+          status: sampleDishes[key].status,
+        });
+        loadSampleDishes();
+      });
+    }
+  };
+  const params = useParams();
+  const icountRef = useRef(0);
+  useEffect(() => {
+    const dishesCountRef = ref(
+      db,
+      `${params.hawkerId}/dishes/inventoryDishes/`
+    );
+    let data;
+    let icount = 0;
+    onValue(dishesCountRef, (snapshot) => {
+      data = snapshot.val();
+      icount++;
+      icountRef.current = icountRef.current + 1;
+      setState({ dishes: data, orders: {}, icount: icount });
     });
+  }, [params.hawkerId]);
+  const addDish = (dish) => {
+    console.log("This is icountref", icountRef.current);
+    console.log("length of state: ",state.dishes.length)
+    let obj = { length: 0 };
+    Object.keys(state?.dishes).forEach((key) => {
+      obj.length = obj.length + 1;
+    });
+    if (params.hawkerId) {
+      set(
+        ref(
+          db,
+          `${params.hawkerId}/dishes/inventoryDishes/idish${
+            obj.length + 1
+          }`
+        ),
+        {
+          name: dish.name,
+          image: dish.image,
+          desc: dish.desc,
+          price: dish.price,
+          status: dish.status,
+        }
+      );
+    }
   };
   const loadSampleDishes = () => {
-    setState({ dishes: {...state.dishes, ...sampleDishes}, orders: {} });
+    const dishesCountRef = ref(db, `${params.hawkerId}/dishes/sampleDishes/`);
+    let data;
+    onValue(dishesCountRef, (snapshot) => {
+      data = snapshot.val();
+      setState({ dishes: data, orders: {} });
+    });
   };
   const addOrder = (key) => {
     //1. take a copy of the state
@@ -43,14 +96,16 @@ function Main() {
       <div className=" p-4 border-8 border-double border-gray-900 flex-1">
         <FoodMenu className=" h-full" />
         <ul className="dishes">
-          {Object.keys(state.dishes).map((key) => (
-            <Dish
-              key={key}
-              details={state.dishes[key]}
-              addOrder={addOrder}
-              index={key}
-            ></Dish>
-          ))}
+          {state?.dishes !== undefined &&
+            state?.dishes !== null &&
+            Object.keys(state?.dishes).map((key) => (
+              <Dish
+                key={key}
+                details={state.dishes[key]}
+                addOrder={addOrder}
+                index={key}
+              ></Dish>
+            ))}
         </ul>
       </div>
       <div className=" p-4 border-8 border-double border-gray-900 flex-1">
@@ -65,6 +120,7 @@ function Main() {
           className=" h-full"
           addDish={addDish}
           loadSampleDishes={loadSampleDishes}
+          uploadSampleData={uploadSampleData}
         />
       </div>
     </div>

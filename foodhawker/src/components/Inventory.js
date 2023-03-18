@@ -10,7 +10,9 @@ function Inventory(props) {
       />
       <button
         className="bg-sky-50 hover:bg-cyan-300 text-center"
-        onClick={props.loadSampleDishes}
+        // onClick={props.loadSampleDishes}
+        onClick={props.uploadSampleData}
+
       >
         + Load Sample Dishes +
       </button>

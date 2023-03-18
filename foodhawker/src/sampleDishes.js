@@ -1,4 +1,4 @@
-const dishes = {
+export const sampleDishes = {
   dish1: {
     name: "Pho",
     image: "/images/pho.jpeg",
@@ -35,4 +35,3 @@ const dishes = {
     status: "available"
   },
 };
-export default dishes;
