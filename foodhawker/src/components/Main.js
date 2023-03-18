@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import FoodMenu from "./FoodMenu";
 import Inventory from "./Inventory";
 import Order from "./Order";
@@ -6,15 +6,23 @@ import { useParams } from "react-router-dom";
 import { sampleDishes } from "../sampleDishes";
 import Dish from "./Dish";
 import { db } from "../base";
-import { ref, onValue, set } from "firebase/database";
+import { ref, onValue, set, get, update } from "firebase/database";
 
 function Main() {
   const [state, setState] = useState({
     dishes: {},
     orders: {},
-    icount: 0,
+    totalPrice: 0,
   });
+
+  console.log(state.totalPrice);
+
+  const params = useParams();
+  const icountRef = useRef(0);
+  const loadSampleRef = useRef(false);
+
   const uploadSampleData = () => {
+    loadSampleRef.current = true;
     if (params.hawkerId) {
       Object.keys(sampleDishes).map((key) => {
         set(ref(db, `${params.hawkerId}/dishes/sampleDishes/${key}`), {
@@ -28,25 +36,8 @@ function Main() {
       });
     }
   };
-  const params = useParams();
-  const icountRef = useRef(0);
-  useEffect(() => {
-    const dishesCountRef = ref(
-      db,
-      `${params.hawkerId}/dishes/inventoryDishes/`
-    );
-    let data;
-    let icount = 0;
-    onValue(dishesCountRef, (snapshot) => {
-      data = snapshot.val();
-      icount++;
-      icountRef.current = icountRef.current + 1;
-      setState({ dishes: data, orders: {}, icount: icount });
-    });
-  }, [params.hawkerId]);
+
   const addDish = (dish) => {
-    console.log("This is icountref", icountRef.current);
-    console.log("length of state: ",state.dishes.length)
     let obj = { length: 0 };
     Object.keys(state?.dishes).forEach((key) => {
       obj.length = obj.length + 1;
@@ -56,7 +47,7 @@ function Main() {
         ref(
           db,
           `${params.hawkerId}/dishes/inventoryDishes/idish${
-            obj.length + 1
+            icountRef.current + 1
           }`
         ),
         {
@@ -69,30 +60,112 @@ function Main() {
       );
     }
   };
-  const loadSampleDishes = () => {
-    const dishesCountRef = ref(db, `${params.hawkerId}/dishes/sampleDishes/`);
+
+  useEffect(() => {
+    const dishesRef = ref(db, `${params.hawkerId}/dishes/inventoryDishes/`);
     let data;
-    onValue(dishesCountRef, (snapshot) => {
+    onValue(dishesRef, (snapshot) => {
+      let icount = 0;
       data = snapshot.val();
-      setState({ dishes: data, orders: {} });
+      if (data !== null && data !== undefined) {
+        Object.keys(data).forEach((key) => {
+          icount += 1;
+        });
+      }
+      icountRef.current = icount;
+      setState((prev) => {
+        return {
+          dishes: data,
+          orders: { ...prev.orders },
+          totalPrice: prev.totalPrice,
+        };
+      });
+      console.log(loadSampleRef.current);
+      if (loadSampleRef.current === true) {
+        loadSampleDishes();
+      }
+    });
+  }, [params.hawkerIdm]);
+
+  const loadSampleDishes = () => {
+    const dishesRef = ref(db, `${params.hawkerId}/dishes/sampleDishes/`);
+    let data;
+    onValue(dishesRef, (snapshot) => {
+      data = snapshot.val();
+      setState((prev) => {
+        return {
+          dishes: { ...data, ...prev.dishes },
+          orders: { ...prev.orders },
+          totalPrice: prev.totalPrice || 0,
+        };
+      });
     });
   };
+
+  useEffect(() => {
+    const orderRef = ref(db, `${params.hawkerId}/orders/`);
+    let data;
+    onValue(orderRef, (snapshot) => {
+      data = snapshot.val();
+      setState((prev) => {
+        return {
+          dishes: { ...prev.dishes },
+          orders: { ...data },
+          totalPrice: prev.totalPrice,
+        };
+      });
+    });
+  }, [params.hawkerIdm]);
+
+  useEffect(() => {
+    const priceRef = ref(db, `${params.hawkerId}/orders/totalPrice`);
+    let data;
+    onValue(priceRef, (snapshot) => {
+      data = snapshot.val();
+      console.log(data);
+      console.log(state.totalPrice);
+      if (data === null || data === undefined) {
+        return;
+      }
+      setState((prev) => {
+        return {
+          dishes: { ...prev.dishes },
+          orders: { ...prev.dishes },
+          totalPrice: data.totalPrice || 0,
+        };
+      });
+    });
+  }, [params.hawkerIdm]);
+
   const addOrder = (key) => {
-    //1. take a copy of the state
-    const orders = { ...state.orders };
-    //2. either add to the order, or update the number in our order
-    orders[key] = orders[key] + 1 || 1;
-    //3.call setState to update the object
-    setState({
-      ...state,
-      orders,
-    });
+    let dish = state.dishes[key];
+
+    const dishRef = ref(db, `${params.hawkerId}/orders/${key}`);
+    const priceRef = ref(db, `${params.hawkerId}/orders/totalPrice`);
+    get(dishRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          // Document exists
+          const data = snapshot.val();
+          update(dishRef, { quantity: data?.quantity + 1 });
+          console.log(state.totalPrice);
+          console.log(dish?.price);
+          update(priceRef, { totalPrice: state.totalPrice + dish?.price });
+        } else {
+          dish.quantity = 1;
+          set(dishRef, dish);
+          console.log(state.totalPrice);
+          console.log(dish?.price);
+          update(priceRef, { totalPrice: state.totalPrice + dish?.price });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
+
   return (
-    <div
-      className=" flex flex-shrink-1 p-8
-     relative bg-white shadow-md min-h-screen"
-    >
+    <div className=" flex flex-shrink-1 p-8 relative bg-white shadow-md min-h-screen">
       <div className=" p-4 border-8 border-double border-gray-900 flex-1">
         <FoodMenu className=" h-full" />
         <ul className="dishes">
@@ -109,11 +182,13 @@ function Main() {
         </ul>
       </div>
       <div className=" p-4 border-8 border-double border-gray-900 flex-1">
-        <Order
-          className=" h-full"
-          dishes={state.dishes}
-          orders={state.orders}
-        />
+        {state?.orders !== undefined && state?.orders !== null && (
+          <Order
+            className=" h-full"
+            orders={state?.orders}
+            totalPrice={state?.totalPrice}
+          />
+        )}
       </div>
       <div className=" p-4 border-8 border-double border-gray-900 flex-1">
         <Inventory
