@@ -1,17 +1,14 @@
 import React from "react";
-
-function formatPrice(cents) {
-  return (cents / 100).toLocaleString("en-US", {
-    style: "currency",
-    currency: "USD",
-  });
-}
+import { formatPrice } from "../helper";
 
 function Dish(props) {
   const { image, name, price, desc, status } = props.details;
+  console.log(image, name, price, desc, status);
+  // const dish = props.dishes[props.index]
   const isAvailable = status === "available";
+  // const isAvailable = dish && dish.status === "available";
 
-  function handleAddToOrder () {
+  function handleAddToOrder() {
     props.addOrder(props.index);
   }
 
@@ -34,7 +31,7 @@ function Dish(props) {
         className={`border border-black bg-sky-50 ${
           isAvailable ? "hover:bg-orange-600" : "opacity-50 cursor-not-allowed"
         }`}
-        onClick ={() => handleAddToOrder()}
+        onClick={() => handleAddToOrder()}
       >
         {isAvailable ? "Add to Order" : "Unavailable"}
       </button>

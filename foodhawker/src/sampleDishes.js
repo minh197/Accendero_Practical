@@ -27,5 +27,12 @@ const dishes = {
     price: 800,
     status: "out of stock",
   },
+  dish5: {
+    name: "Banh Beo",
+    image: "/images/banhbeo.jpeg",
+    desc: "A bánh bèo is a Vietnamese dish that is originated from Huế, a city in Central Vietnam. The English translation for this dish is water fern cakes. Bánh bèo is made from a combination of rice flour and tapioca flour. It is popular street food in Vietnam.",
+    price: 1500,
+    status: "available"
+  },
 };
 export default dishes;

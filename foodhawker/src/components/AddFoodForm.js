@@ -2,11 +2,11 @@ import React, { useState, useRef } from "react";
 
 function AddFoodForm(props) {
   const [name, price, select, desc, image] = [
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
-    useRef(),
+    useRef(""),
+    useRef(""),
+    useRef(""),
+    useRef(""),
+    useRef(""),
   ];
 
   const [createNewDish, setCreateNewDish] = useState(() => {
@@ -16,25 +16,25 @@ function AddFoodForm(props) {
       const dish = {
         name: name.current.value,
         price: parseFloat(price.current.value),
-        select: select.current.value,
+        select: select.current.option,
         desc: desc.current.value,
         image: image.current.value,
       };
       props.addDish(dish);
-      console.log(dish)
+      console.log(dish);
+      console.log("This is select", select);
       //refresh the form
       console.log(event);
-    event.target.reset();
-
+      event.target.reset();
     }
-    return handleCreateNewDish;
+    return { handleCreateNewDish };
   });
 
   return (
     <div className="mb-20 border-2 border-black ">
       <form
         className="overflow-hidden flex flex-wrap dish-edit"
-        onSubmit={createNewDish}
+        onSubmit={createNewDish.handleCreateNewDish}
       >
         <input
           name="name"
@@ -54,9 +54,11 @@ function AddFoodForm(props) {
           name="status"
           className="focus:bg-yellow-200 w-1/3 p-10 text-base border-0 border-b-2 border-black rounded-none bg-white"
           ref={select}
+          defaultValue="available"
+          onSelect={props.handleSelectChange}
         >
-          <option value="available">In Stock</option>
-          <option value="out of stock">Out of Stock</option>
+          <option value="available">Available</option>
+          <option value="unavailable">Unavailable</option>
         </select>
         <textarea
           name="desc"
@@ -78,7 +80,6 @@ function AddFoodForm(props) {
           + Add New Dish
         </button>
       </form>
-     
     </div>
   );
 }
