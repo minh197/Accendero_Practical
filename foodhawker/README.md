@@ -27,6 +27,7 @@ Here are the references that were used throughout the process of building this p
 - https://stackoverflow.com/questions/62861269/attempted-import-error-usehistory-is-not-exported-from-react-router-dom
 - https://support.glitch.com/t/firebase-database-returns-error-database-is-not-a-function/45956
 - https://www.makeuseof.com/react-app-firebase-connect/
+- https://testing-library.com/docs/react-testing-library/intro/
 
 ## Images
 - <img width="1277" alt="Screen Shot 2023-03-19 at 4 19 11 PM" src="https://user-images.githubusercontent.com/61608148/226206918-d46dc1be-be04-4efe-a944-118bc65bd71a.png">
