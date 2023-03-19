@@ -14,7 +14,7 @@ A food hawker center is an open-air complex commonly found in Asian countries su
 
 ## Installation Instructions
 
-To install the project, you need to have node.js installed in your system. After you have cloned the project from Github to your local machine, run `$npm install` or `npm i` to install the necessary dependencies to run the project.
+To install the project, you need to have node.js installed in your system. After you have cloned the project from Github to your local machine, run `npm install` or `npm i` to install the necessary dependencies to run the project.
 
 ## References
 
