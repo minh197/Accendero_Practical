@@ -1,5 +1,5 @@
 import React from "react";
-import { formatPrice } from "../helper";
+import { formatPrice } from "../../helper";
 
 function Dish(props) {
   const { image, name, price, desc, status } = props.details;

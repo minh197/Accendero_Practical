@@ -2,7 +2,7 @@ import "./App.css";
 import StorePicker from "./components/StorePicker";
 import { Routes, Route } from "react-router-dom";
 import NotFound from "./components/NotFound/NotFound";
-import Main from "./components/Main";
+import Main from "./components/Main/Main";
 
 function App() {
   return (

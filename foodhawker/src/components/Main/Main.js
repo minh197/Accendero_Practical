@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import FoodMenu from "./FoodMenu";
-import Inventory from "./Inventory";
-import Order from "./Order";
+import FoodMenu from "../FoodMenu";
+import Inventory from "../Inventory";
+import Order from "../Order";
 import { useParams } from "react-router-dom";
-import { sampleDishes } from "../sampleDishes";
-import Dish from "./Dish";
-import { db } from "../base";
+import { sampleDishes } from "../../sampleDishes";
+import Dish from "../Dish/Dish";
+import { db } from "../../base";
 import { ref, onValue, set, get, update } from "firebase/database";
 
 function Main() {
