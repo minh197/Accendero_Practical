@@ -1,4 +1,5 @@
 Minh Nguyen's Accendero Pratical
+
 ##Project Idea
 A food hawker center is an open-air complex commonly found in Asian countries such as Vietnam, China, Singapore, and Malaysia. Through this application, users can
 name their own food hawker center, create a list of dishes that will then be rendered on the site. Users will then be able to add the dish to their order and see the total price of their purchase.
