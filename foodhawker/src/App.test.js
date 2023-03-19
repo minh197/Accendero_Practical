@@ -3,7 +3,7 @@ import {MemoryRouter, Routes, Route} from "react-router-dom";
 import TestRenderer from 'react-test-renderer'; // ES6
 
 import App from './App';
-import NotFound from './components/NotFound';
+import NotFound from './components/NotFound/NotFound';
 
 
 
