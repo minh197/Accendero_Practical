@@ -7,6 +7,7 @@ This is a web application designed to simulate a food hawker center. Users can c
 * [Project Idea](#project-idea)
 * [Installation](#installation)
 * [References](#references)
+* [Project's images](#images)
 
 ## Project Idea
 
@@ -26,3 +27,6 @@ Here are the references that were used throughout the process of building this p
 - https://stackoverflow.com/questions/62861269/attempted-import-error-usehistory-is-not-exported-from-react-router-dom
 - https://support.glitch.com/t/firebase-database-returns-error-database-is-not-a-function/45956
 - https://www.makeuseof.com/react-app-firebase-connect/
+
+## Images
+
