@@ -1,9 +1,7 @@
 import React from "react";
 
 const NotFound = () => {
-  <div>
-    NotFound!!!!
-  </div>;
+  <div>NotFound!!!!</div>;
 };
 
 export default NotFound;
