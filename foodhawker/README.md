@@ -4,10 +4,10 @@ This is a web application designed to simulate a food hawker center. Users can c
 
 ## Table of Contents
 
-* [Project Idea](#project-idea)
-* [Installation](#installation)
-* [References](#references)
-* [Project's images](#images)
+- [Project Idea](#project-idea)
+- [Installation](#installation)
+- [References](#references)
+- [Project's images](#images)
 
 ## Project Idea
 
@@ -15,7 +15,7 @@ A food hawker center is an open-air complex commonly found in Asian countries su
 
 ## Installation Instructions
 
-To install the project, you need to have node.js installed in your system. After you have cloned the project from Github to your local machine, run `npm install` or `npm i` to install the necessary dependencies to run the project.
+To install the project, you need to have node.js installed in your system. After you have cloned the project from Github to your local machine, run `npm install` or `npm i` to install the necessary dependencies to run the project. In order to run the project, prompt in `npm run start` in your command line.
 
 ## References
 
@@ -32,8 +32,7 @@ Here are the references that were used throughout the process of building this p
 - https://www.tabnine.com/code/javascript/functions/dom-testing-library/getByAltText
 
 ## Images
+
 - <img width="1277" alt="Screen Shot 2023-03-19 at 4 19 11 PM" src="https://user-images.githubusercontent.com/61608148/226206918-d46dc1be-be04-4efe-a944-118bc65bd71a.png">
 - <img width="643" alt="Screen Shot 2023-03-19 at 4 19 38 PM" src="https://user-images.githubusercontent.com/61608148/226206919-549c4ec0-f0ae-46bb-b3bd-31761610fbbf.png">
 - <img width="640" alt="Screen Shot 2023-03-19 at 4 20 34 PM" src="https://user-images.githubusercontent.com/61608148/226206921-a7169e5c-958e-4fd8-b1bd-4116b4af5dcc.png">
-
-
