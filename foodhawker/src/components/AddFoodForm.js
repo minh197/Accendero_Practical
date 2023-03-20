@@ -50,6 +50,7 @@ function AddFoodForm(props) {
           name="status"
           className="focus:bg-yellow-200 w-1/3 p-10 text-base border-0 border-b-2 border-black rounded-none bg-white"
           ref={select}
+          placeholder="Status"
           defaultValue="available"
           onSelect={props.handleSelectChange}
         >
