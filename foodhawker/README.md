@@ -1,4 +1,4 @@
-# Accendero Practical
+# Food Hawker
 
 This is a web application designed to simulate a food hawker center. Users can create their own food hawker center by giving it a name and adding a list of dishes to be rendered on the site. They can then add dishes to their order and see the total price of their purchase.
 
