@@ -1,4 +1,3 @@
 # Food Hawker
 
-Minh Nguyen's personal project
-Please navigate to the food hawker folder to view the project's readme
+Minh Nguyen's personal project. Please navigate to the food hawker folder to view the project's readme
